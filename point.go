@@ -48,6 +48,6 @@ func (p *Point) Equals(other *Point) bool {
 }
 
 // Return the distance between to points.
-func (p *Point) Distance(other *Point) float64 {
+func (p *Point) DistanceTo(other *Point) float64 {
 	return p.coord.DistanceTo(&other.coord)
 }

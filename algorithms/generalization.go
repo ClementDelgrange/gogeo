@@ -15,7 +15,7 @@ func DouglasPeucker(coords []gogeo.Coordinate, e float64) []gogeo.Coordinate {
 	var dmax float64 = -1
 	var imax int = -1
 	for i := 1; i < n-1; i++ {
-		d := coords[i].ShortestDistanceToSegment(&coords[0], &coords[n-1])
+		d, _ := coords[i].ShortestDistanceToSegment(&coords[0], &coords[n-1])
 		if d > dmax {
 			dmax = d
 			imax = i
