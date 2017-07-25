@@ -27,7 +27,7 @@ func (s ByAngle) Less(i, j int) bool {
 }
 
 
-// Returns convex hull for a given coordinate list using Jarvis algorithm
+// ConvexHullJarvis returns the convex hull for a given coordinate list using Jarvis algorithm
 func ConvexHullJarvis(coords []gogeo.Coordinate) []gogeo.Coordinate {
 	var hull []gogeo.Coordinate
 	leftId := FarLeftId(coords)
@@ -43,9 +43,9 @@ func ConvexHullJarvis(coords []gogeo.Coordinate) []gogeo.Coordinate {
 		for j := 2; j < len(coords); j++ {
 			ccw := Counterclockwise(coords, ini, fin, (ini + j) % n)
 			if ccw > 0 || ( ccw == 0 && FarAway(coords, ini, fin, (ini + j) % n) == (ini + j) % n ) {
-				// coords[ini+j%n] est à gauche par rapport à la demi-droite [coord[ini],coords[fin])
+				// coords[(ini+j)%n] est à gauche par rapport à la demi-droite [coord[ini],coords[fin])
 				// ou sur la demi droite mais plus loin
-				// coords[ini+j%n] est un bon candidat pour l'enveloppe : on met à jour
+				// coords[(ini+j)%n] est un bon candidat pour l'enveloppe : on met à jour
 				fin = (ini + j) % n
 			}
 		}
@@ -61,7 +61,7 @@ func ConvexHullJarvis(coords []gogeo.Coordinate) []gogeo.Coordinate {
 	return hull
 }
 
-// Returns convex hull for a given coordinate list using Jarvis algorithm
+// ConvexHullGraham returns the convex hull for a given coordinate list using Graham algorithm
 func ConvexHullGraham(coords []gogeo.Coordinate) []gogeo.Coordinate {
 	var hull []gogeo.Coordinate
 	leftId := FarLeftId(coords)
