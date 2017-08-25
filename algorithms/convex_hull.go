@@ -71,7 +71,7 @@ func ConvexHullGraham(coords []gogeo.Coordinate) []gogeo.Coordinate {
 	angles := make([]dataAngles, n)
 	for i := 1; i <= n; i++ {
 		angles[i-1].idCoord = (leftId + i) % n
-		angles[i-1].angle = AngularAngleToLeftAwayPoint(coords, leftId, (leftId + i) % n)
+		angles[i-1].angle = PolarAngle(coords, leftId, (leftId + i) % n)
 	}
 
 	// tri croissant des angles
@@ -126,7 +126,7 @@ func FarLeftId(coords []gogeo.Coordinate) int {
 }
 
 // Determines if 3 coordinates are counterclockwise
-// This function is base on the cross product.
+// This function returns the value of the cross product of the vectors 1->2 et 1->3.
 // If result is positiv, coordinates are counterclockwise. If null, there are align. Else, there are clockwise.
 func Counterclockwise(coords []gogeo.Coordinate, i, j, k int) float64 {
 	res := (coords[j][0] - coords[i][0]) * (coords[k][1] - coords[i][1]) - (coords[j][1] - coords[i][1]) * (coords[k][0] - coords[i][0])
@@ -134,6 +134,7 @@ func Counterclockwise(coords []gogeo.Coordinate, i, j, k int) float64 {
 }
 
 // Returns indice of the far away point from a given point
+// In case of equality, the first coordinate is chosen.
 func FarAway(coords []gogeo.Coordinate, p int, i, j int) int {
 	dpi := coords[p].DistanceTo(&coords[i])
 	dpj := coords[p].DistanceTo(&coords[j])
@@ -144,8 +145,8 @@ func FarAway(coords []gogeo.Coordinate, p int, i, j int) int {
 	}
 }
 
-//
-func AngularAngleToLeftAwayPoint(coords []gogeo.Coordinate, p int, i int) float64 {
+// Return the value of the polar angle from the first given coordinate to the second
+func PolarAngle(coords []gogeo.Coordinate, p int, i int) float64 {
 	x := coords[i][0] - coords[p][0]
 	y := coords[i][1] - coords[p][1]
 	return math.Atan2(y, x)
