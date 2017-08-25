@@ -33,13 +33,13 @@ func (c Coordinate) Y() float64 {
 	return c[1]
 }
 
-// DistanceTo returns distance to an other coordinate
+// DistanceTo returns distance to an other coordinate.
 func (c Coordinate) DistanceTo(other *Coordinate) float64 {
 	d := math.Sqrt(math.Pow((c.X() - other.X()), 2) + math.Pow((c.Y() - other.Y()), 2))
 	return d
 }
 
-// ShortestDistanceToLine returns the shortest distance from the coordinate to the line (c1-c2)
+// ShortestDistanceToLine returns the shortest distance from the coordinate to the line (c1-c2).
 func (c Coordinate) ShortestDistanceToLine(c1 *Coordinate, c2 *Coordinate) (float64, error) {
 	if c1.Equals(c2) {
 		// c1 and c2 are equals : no line
@@ -63,7 +63,7 @@ func (c Coordinate) ShortestDistanceToLine(c1 *Coordinate, c2 *Coordinate) (floa
 	return math.Abs((m*c.X() - c.Y() + b) / math.Sqrt(1 + m*m)), nil
 }
 
-// OrthogonalDistanceToSegment returns, if it exists, the orthogonal distance from the coordinate to the segment [c1-c2]
+// OrthogonalDistanceToSegment returns, if it exists, the orthogonal distance from the coordinate to the segment [c1-c2].
 func (c Coordinate) OrthogonalDistanceToSegment(c1 *Coordinate, c2 *Coordinate) (float64, error) {
 	dmin, err := c.ShortestDistanceToLine(c1, c2)
 	if err != nil {
@@ -80,7 +80,7 @@ func (c Coordinate) OrthogonalDistanceToSegment(c1 *Coordinate, c2 *Coordinate) 
 	return dmin, nil
 }
 
-// ShortestDistanceToSegment returns the shortest distance from the coordinate to the segment [c1-c2]
+// ShortestDistanceToSegment returns the shortest distance from the coordinate to the segment [c1-c2].
 func (c Coordinate) ShortestDistanceToSegment(c1 *Coordinate, c2 *Coordinate) (float64, error) {
 	dmin, err := c.ShortestDistanceToLine(c1, c2)
 	if err != nil {

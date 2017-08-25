@@ -9,7 +9,7 @@ type Point struct {
 	coord Coordinate
 }
 
-// NewPoint create a new Point with provided coordinate
+// NewPoint create a new Point with provided coordinate.
 func NewPoint(c *Coordinate) *Point {
 	return &Point{*c}
 }
